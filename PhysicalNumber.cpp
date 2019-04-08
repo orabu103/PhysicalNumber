@@ -8,13 +8,14 @@ PhysicalNumber::PhysicalNumber(double val, Unit name)
     _val = val;
     _name = name;
 }
-const PhysicalNumber PhysicalNumber::operator+() const { return *this; }
+const PhysicalNumber PhysicalNumber::operator+() const {  return *this; }
 const PhysicalNumber PhysicalNumber::operator-() const { return PhysicalNumber(-this->_val,this->_name); }
 
 const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber &py) const
 {
     if(verifier(*this,py)){
-    double temp = Conversion::conver(this->_name,py._name,py._val);   
+    double temp = Conversion::conver(this->_name,py._name,py._val);  
+   
     return PhysicalNumber(this->_val + temp, this->_name);
     }
     else throw std::string("Not the same Unit");
@@ -24,6 +25,7 @@ const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber &py) const
 {
     if(verifier(*this,py)){
     double temp = Conversion::conver(this->_name,py._name,py._val);
+    //  cout << temp<<"\n";
     return PhysicalNumber(this->_val - temp, this->_name);
     }
     else throw std::string("Not the same Unit");
@@ -70,13 +72,18 @@ bool ariel::operator>(const PhysicalNumber &p1 ,const PhysicalNumber &p2) {
 
 }
 bool ariel::operator<(const PhysicalNumber &p1 ,const PhysicalNumber &p2) {
-    if(!(p1 > p2)) return true;
+    if((p2 > p1)) return true;
     return false;
 }
 bool ariel::operator==(const PhysicalNumber &p1 ,const PhysicalNumber &p2) {
     // if(verifier(p1,p2)){
     double p2_double = Conversion::conver(p1._name,p2._name,p2._val);
-    if(p1._val==p2_double) return true;
+    // cout << p1._val<<"\n";
+    // cout << p2_double<<"\n";
+    // double a =p2_double-p1._val;
+    // cout <<a <<"\n";
+
+    if(p1._val-p2_double==0) return true;
     return false;
     // }
     // else throw std::string("Not the same Unit");
@@ -87,7 +94,7 @@ bool ariel::operator!=(const PhysicalNumber &p1 ,const PhysicalNumber &p2) {
     return false;
 }
 bool ariel::operator>=(const PhysicalNumber &p1 ,const PhysicalNumber &p2) {
-    if(!(p1 < p2)) return true;
+    if(!(p1 < p2)) {return true;}
     return false;
 }
 bool ariel::operator<=(const PhysicalNumber &p1 ,const PhysicalNumber &p2) {
@@ -138,7 +145,6 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
         is.clear(); // clear error so seekg will work
         is.seekg(startPosition); // rewind
         is.clear(errorState); // set back the error flag
-
 
         Unit new_type;
         if( s.compare("km") == 0 ) new_type = Unit::KM; 
