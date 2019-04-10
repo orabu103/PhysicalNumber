@@ -171,7 +171,8 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
             is.clear(errorState); // set back the error flag
         return is;
          }
-         
+                 other._val=val;
+        other._name = new_type;
         
         return is;
 }
