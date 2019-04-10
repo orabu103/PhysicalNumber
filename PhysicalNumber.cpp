@@ -44,6 +44,9 @@ PhysicalNumber& PhysicalNumber::operator-=(const PhysicalNumber &py)
     *this=temp;   
     return *this;
 }
+
+// Increasing and decreasing by one operators
+// Postfix: (A++)
 const PhysicalNumber PhysicalNumber::operator++(int){
     PhysicalNumber temp(*this);
     this->_val++ ;
@@ -51,9 +54,10 @@ const PhysicalNumber PhysicalNumber::operator++(int){
 }
 const PhysicalNumber PhysicalNumber::operator--(int){
     PhysicalNumber temp(*this);
-    this->_val++ ;
+    this->_val-- ;
     return temp;
 }
+// Prefix: (++A)
 PhysicalNumber& PhysicalNumber::operator++(){
      ++this->_val;
     return *this;
