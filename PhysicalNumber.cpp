@@ -134,7 +134,10 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
          (!getAndCheckNextCharIs(is,'[')) ||
          (!(is >> s))                     ||
          (!(getAndCheckNextCharIs(is,']')))) {
-        s.erase(std::remove(s.begin(), s.end(), ']'), s.end());        
+        int n = s.find(']');
+        s=s.substr(0, n);
+        // s.erase(std::remove(s.begin(), s.end(), ']'), s.end()); 
+        cout << s;       
 
         Unit new_type;
         if( s.compare("km") == 0 ) new_type = Unit::KM; 
