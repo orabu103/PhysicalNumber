@@ -141,10 +141,8 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
         is.clear(); // clear error so seekg will work
         is.seekg(startPosition); // rewind
         is.clear(errorState); // set back the error flag
-        return is;
-     
-        }
-           Unit new_type;
+
+        Unit new_type;
         if( s.compare("km") == 0 ) new_type = Unit::KM; 
         else if( s.compare("m") == 0 ) new_type = Unit::M; 
         else if( s.compare("cm") == 0 ) new_type = Unit::CM; 
@@ -161,9 +159,9 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
         is.clear(); // clear error so seekg will work
         is.seekg(startPosition); // rewind
         is.clear(errorState); // set back the error flag
-        return is;
         }
         other._name = new_type;
+        }
         return is;
 }
 // Checking:                                                              
