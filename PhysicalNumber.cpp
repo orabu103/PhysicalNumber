@@ -126,60 +126,69 @@ static istream& getAndCheckNextCharIs(istream& input, char expectedChar) {
         input.setstate(ios::failbit);
     return input;
 }
-std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
+std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other) {
+std::string input;
+
+// remember place for rewinding
+std::ios::pos_type startPosition = is.tellg();
+
+is >> input;
+
+Unit new_type; // Answers
+double new_value; // Ansers
+
+int f_index = input.find('[');
+int l_index = input.find(']');
+
+if(f_index == -1 || l_index == -1 || f_index >= l_index) 
 {
-    ios::pos_type startPosition = is.tellg();
-    std:string s;
-    int val=0;
-     Unit new_type;
- if ( (!(is >> val))               ||
-         (!getAndCheckNextCharIs(is,'[')) ||
-         (!(is >> s))                     ||
-         (!(getAndCheckNextCharIs(is,']')))) {
-        int n = s.find(']');
-        s=s.substr(0, n);
-        // s.erase(std::remove(s.begin(), s.end(), ']'), s.end());      
-            if(!s.empty()){
-                if( s.compare("km") == 0 ) new_type = Unit::KM; 
-                else if( s.compare("m") == 0 ) new_type = Unit::M; 
-                else if( s.compare("cm") == 0 ) new_type = Unit::CM; 
-
-                else if( s.compare("ton") == 0 ) new_type = Unit::TON; 
-                else if( s.compare("kg") == 0 ) new_type = Unit::KG; 
-                else if( s.compare("g") == 0 ) new_type = Unit::G; 
-
-                else if( s.compare("hour") == 0 ) new_type = Unit::HOUR; 
-                else if( s.compare("min") == 0 ) new_type = Unit::MIN; 
-                else if( s.compare("sec") == 0 ) new_type = Unit::SEC; 
-                else{
-                    auto errorState = is.rdstate(); // remember error state
-                    is.clear(); // clear error so seekg will work
-                    is.seekg(startPosition); // rewind
-                    is.clear(errorState); // set back the error flag
-                    return is;
-                }
-            }
-            else {
-            auto errorState = is.rdstate(); // remember error state
-            is.clear(); // clear error so seekg will work
-            is.seekg(startPosition); // rewind
-            is.clear(errorState); // set back the error flag
-            return is;
-         }
-         }
-         else {
-            auto errorState = is.rdstate(); // remember error state
-            is.clear(); // clear error so seekg will work
-            is.seekg(startPosition); // rewind
-            is.clear(errorState); // set back the error flag
-            return is;
-         }
-          
-        other._name = new_type;
-        other._val = val;
-        
-        return is;
+    auto errorState = is.rdstate(); // remember error state
+    is.clear(); // clear error so seekg will work
+    is.seekg(startPosition); // rewind
+    is.clear(errorState); // set back the error flag
+    return is;
 }
+
+std::string numbers = input.substr(0,f_index);
+std::string s_type = input.substr(f_index+1,l_index - f_index - 1 );
+
+try
+{
+    new_value = stod(numbers);   
+}
+catch(std::exception& e)
+{
+    auto errorState = is.rdstate(); // remember error state
+    is.clear(); // clear error so seekg will work
+    is.seekg(startPosition); // rewind
+    is.clear(errorState); // set back the error flag
+    return is;
+}
+
+if( s_type.compare("km") == 0 ) new_type = Unit::KM; 
+else if( s_type.compare("m") == 0 ) new_type = Unit::M; 
+else if( s_type.compare("cm") == 0 ) new_type = Unit::CM; 
+
+else if( s_type.compare("ton") == 0 ) new_type = Unit::TON; 
+else if( s_type.compare("kg") == 0 ) new_type = Unit::KG; 
+else if( s_type.compare("g") == 0 ) new_type = Unit::G; 
+
+else if( s_type.compare("hour") == 0 ) new_type = Unit::HOUR; 
+else if( s_type.compare("min") == 0 ) new_type = Unit::MIN; 
+else if( s_type.compare("sec") == 0 ) new_type = Unit::SEC;
+else {
+    auto errorState = is.rdstate(); // remember error state
+    is.clear(); // clear error so seekg will work
+    is.seekg(startPosition); // rewind
+    is.clear(errorState); // set back the error flag
+    return is;
+}
+
+other._name = new_type;
+other._val = new_value;
+return is;
+}
+
 // Checking:                                                              
 bool PhysicalNumber::verifier(const PhysicalNumber& input1, const PhysicalNumber& input2)  {
 if( (is_len(input1,input2) || is_mass(input1,input2) || is_time(input1,input2)) ) return true;
