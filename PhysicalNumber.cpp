@@ -152,6 +152,7 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
         else if( s.compare("min") == 0 ) new_type = Unit::MIN; 
         else if( s.compare("sec") == 0 ) new_type = Unit::SEC; 
         else{
+         other._val=0;
         auto errorState = is.rdstate(); // remember error state
         is.clear(); // clear error so seekg will work
         is.seekg(startPosition); // rewind
