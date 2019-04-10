@@ -130,7 +130,9 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
 {
     ios::pos_type startPosition = is.tellg();
     std:string s;
-    int val=0;;
+    int val=0;
+            Unit new_type;
+
  if ( (!(is >> val))               ||
          (!getAndCheckNextCharIs(is,'[')) ||
          (!(is >> s))                     ||
@@ -140,7 +142,6 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
         // s.erase(std::remove(s.begin(), s.end(), ']'), s.end()); 
         cout << s;       
 
-        Unit new_type;
             if(!s.empty()){
                 if( s.compare("km") == 0 ) new_type = Unit::KM; 
                 else if( s.compare("m") == 0 ) new_type = Unit::M; 
