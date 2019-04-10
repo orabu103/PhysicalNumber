@@ -38,10 +38,10 @@ namespace ariel{
 		    friend std::istream& operator>>(std::istream&, PhysicalNumber&); 
 
             // Checking:
-		    bool verifier(const PhysicalNumber&, const PhysicalNumber&) const; //[V]
-		    bool is_len(const PhysicalNumber&, const PhysicalNumber&) const; //[V]
-		    bool is_mass(const PhysicalNumber&, const PhysicalNumber&) const; //[V]
-		    bool is_time(const PhysicalNumber&, const PhysicalNumber&) const; //[V]
+		   static  bool verifier(const PhysicalNumber&, const PhysicalNumber&) ; //[V]
+		   static  bool is_len(const PhysicalNumber&, const PhysicalNumber&) ; //[V]
+		   static  bool is_mass(const PhysicalNumber&, const PhysicalNumber&) ; //[V]
+		   static  bool is_time(const PhysicalNumber&, const PhysicalNumber&) ; //[V]
 
 
 
