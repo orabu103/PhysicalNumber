@@ -15,7 +15,6 @@ const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber &py) const
 {
     if(verifier(*this,py)){
     double temp = Conversion::conver(this->_name,py._name,py._val);  
-   
     return PhysicalNumber(this->_val + temp, this->_name);
     }
     else throw std::string("Not the same Unit");
@@ -25,7 +24,6 @@ const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber &py) const
 {
     if(verifier(*this,py)){
     double temp = Conversion::conver(this->_name,py._name,py._val);
-    //  cout << temp<<"\n";
     return PhysicalNumber(this->_val - temp, this->_name);
     }
     else throw std::string("Not the same Unit");
@@ -69,7 +67,7 @@ PhysicalNumber& PhysicalNumber::operator--(){
 bool ariel::operator>(const PhysicalNumber &p1 ,const PhysicalNumber &p2) {
     if(PhysicalNumber::verifier(p1,p2)){
     double p2_double = Conversion::conver(p1._name,p2._name,p2._val);
-    if(p1._val>p2_double) return true;
+    if(p1._val > p2_double)return true;
     return false;
     }
     else throw std::string("Not the same Unit");
@@ -81,7 +79,6 @@ bool ariel::operator<(const PhysicalNumber &p1 ,const PhysicalNumber &p2) {
 }
 bool ariel::operator==(const PhysicalNumber &p1 ,const PhysicalNumber &p2) {
     if(PhysicalNumber::verifier(p1,p2)){
-    double p2_double = Conversion::conver(p1._name,p2._name,p2._val);
     if((p1 >= p2) && !(p1 > p2)) return true;
     return false;
     }
@@ -156,7 +153,13 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
 
         else if( s.compare("hour") == 0 ) new_type = Unit::HOUR; 
         else if( s.compare("min") == 0 ) new_type = Unit::MIN; 
-        else new_type = Unit::SEC; // ( s.compare("sec") ==0  )
+        else if( s.compare("sec") == 0 ) new_type = Unit::SEC; 
+        else{
+                    auto errorState = is.rdstate(); // remember error state
+        is.clear(); // clear error so seekg will work
+        is.seekg(startPosition); // rewind
+        is.clear(errorState); // set back the error flag
+        }
         other._name = new_type;
         }
         return is;
