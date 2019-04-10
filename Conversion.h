@@ -67,7 +67,7 @@ namespace ariel{
                 return 1000 *size; 
                 break;
               case Unit::TON:
-                return 0.001 *size; 
+                return size / 1000; 
                 break;
                 default:return size;
                 break;
@@ -90,7 +90,7 @@ namespace ariel{
             switch (sur)
             {
               case Unit::MIN:
-                return size * 0.01666666666667; 
+                return size / 60; 
                 break;
               case Unit::HOUR:
                 return size / 3600; 
@@ -106,7 +106,7 @@ namespace ariel{
                 return 60 *size; 
                 break;
               case Unit::HOUR:
-                return size / 60; 
+                return size / 60 ; 
                 break;
                 default:return size;
                 break;
