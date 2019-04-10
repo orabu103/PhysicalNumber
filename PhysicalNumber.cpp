@@ -130,10 +130,8 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
 {
     ios::pos_type startPosition = is.tellg();
     std:string s;
-    int val=0;
-            Unit new_type;
-
- if ( (!(is >> val))               ||
+    int val=0;;
+ if ( (!(is >> other._val))               ||
          (!getAndCheckNextCharIs(is,'[')) ||
          (!(is >> s))                     ||
          (!(getAndCheckNextCharIs(is,']')))) {
@@ -142,6 +140,7 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
         // s.erase(std::remove(s.begin(), s.end(), ']'), s.end()); 
         cout << s;       
 
+        Unit new_type;
             if(!s.empty()){
                 if( s.compare("km") == 0 ) new_type = Unit::KM; 
                 else if( s.compare("m") == 0 ) new_type = Unit::M; 
@@ -156,6 +155,7 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
                 else if( s.compare("sec") == 0 ) new_type = Unit::SEC; 
                 else{
 
+                //other._val=0;
                 auto errorState = is.rdstate(); // remember error state
                 is.clear(); // clear error so seekg will work
                 is.seekg(startPosition); // rewind
@@ -163,7 +163,7 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
                 return is;
                 }
             }
-
+        other._name = new_type;
          }
          else {
             auto errorState = is.rdstate(); // remember error state
@@ -172,8 +172,6 @@ std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other)
             is.clear(errorState); // set back the error flag
         return is;
          }
-                 other._val=val;
-        other._name = new_type;
         
         return is;
 }
