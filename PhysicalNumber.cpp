@@ -82,7 +82,7 @@ bool ariel::operator<(const PhysicalNumber &p1 ,const PhysicalNumber &p2) {
 bool ariel::operator==(const PhysicalNumber &p1 ,const PhysicalNumber &p2) {
     if(PhysicalNumber::verifier(p1,p2)){
     double p2_double = Conversion::conver(p1._name,p2._name,p2._val);
-    if(p1._val-p2_double==0) return true;
+    if((p1 >= p2) && !(p1 > p2)) return true;
     return false;
     }
     else throw std::string("Not the same Unit");
