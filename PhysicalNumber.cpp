@@ -137,7 +137,7 @@ std::ios::pos_type startPosition = is.tellg();
 is >> input;
 
 Unit new_type; // Answers
-double new_Valueue; // Ansers
+double new_Value; // Ansers
 
 int f_index = input.find('[');
 int l_index = input.find(']');
