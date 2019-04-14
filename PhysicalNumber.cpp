@@ -3,19 +3,19 @@
 using namespace std;
 using namespace ariel;
 
-PhysicalNumber::PhysicalNumber(double val, Unit name)
+PhysicalNumber::PhysicalNumber(double Value, Unit Type)
 {
-    _val = val;
-    _name = name;
+    _Value = Value;
+    _Type = Type;
 }
 const PhysicalNumber PhysicalNumber::operator+() const {  return *this; }
-const PhysicalNumber PhysicalNumber::operator-() const { return PhysicalNumber(-this->_val,this->_name); }
+const PhysicalNumber PhysicalNumber::operator-() const { return PhysicalNumber(-this->_Value,this->_Type); }
 
 const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber &py) const
 {
     if(verifier(*this,py)){
-    double temp = Conversion::conver(this->_name,py._name,py._val);  
-    return PhysicalNumber(this->_val + temp, this->_name);
+    double temp = Conversion::conver(this->_Type,py._Type,py._Value);  
+    return PhysicalNumber(this->_Value + temp, this->_Type);
     }
     else throw std::string("Not the same Unit");
 
@@ -23,8 +23,8 @@ const PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber &py) const
 const PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber &py) const
 {
     if(verifier(*this,py)){
-    double temp = Conversion::conver(this->_name,py._name,py._val);
-    return PhysicalNumber(this->_val - temp, this->_name);
+    double temp = Conversion::conver(this->_Type,py._Type,py._Value);
+    return PhysicalNumber(this->_Value - temp, this->_Type);
     }
     else throw std::string("Not the same Unit");
 }
@@ -47,26 +47,26 @@ PhysicalNumber& PhysicalNumber::operator-=(const PhysicalNumber &py)
 // Postfix: (A++)
 const PhysicalNumber PhysicalNumber::operator++(int){
     PhysicalNumber temp(*this);
-    this->_val++ ;
+    this->_Value++ ;
     return temp;
 }
 const PhysicalNumber PhysicalNumber::operator--(int){
     PhysicalNumber temp(*this);
-    this->_val-- ;
+    this->_Value-- ;
     return temp;
 }
 // Prefix: (++A)
 PhysicalNumber& PhysicalNumber::operator++(){
-     ++this->_val;
+     ++this->_Value;
     return *this;
 }
 PhysicalNumber& PhysicalNumber::operator--(){
-    --this->_val;
+    --this->_Value;
     return *this;
 }
 bool ariel::operator>(const PhysicalNumber &p1 ,const PhysicalNumber &p2) {   
     if(PhysicalNumber::verifier(p1,p2)){
-    double ans = (p1 - p2)._val;
+    double ans = (p1 - p2)._Value;
     if(ans > 0) return true;
     else
     return false;
@@ -102,7 +102,7 @@ bool ariel::operator<=(const PhysicalNumber &p1 ,const PhysicalNumber &p2) {
 std::ostream& ariel::operator<<(std::ostream& os, const PhysicalNumber& other)
 {
     std::string typeof;
-switch(other._name) 
+switch(other._Type) 
 {
     case Unit::KM : typeof = "km"; break;
     case Unit::M : typeof = "m"; break;
@@ -114,7 +114,7 @@ switch(other._name)
     case Unit::MIN : typeof = "min"; break;
     case Unit::SEC : typeof = "sec"; break;
 }
-return os << other._val << "[" << typeof <<"]";
+return os << other._Value << "[" << typeof <<"]";
 }
 
 
@@ -137,7 +137,7 @@ std::ios::pos_type startPosition = is.tellg();
 is >> input;
 
 Unit new_type; // Answers
-double new_value; // Ansers
+double new_Valueue; // Ansers
 
 int f_index = input.find('[');
 int l_index = input.find(']');
@@ -156,7 +156,7 @@ std::string s_type = input.substr(f_index+1,l_index - f_index - 1 );
 
 try
 {
-    new_value = stod(numbers);   
+    new_Value = stod(numbers);   
 }
 catch(std::exception& e)
 {
@@ -186,8 +186,8 @@ else {
     return is;
 }
 
-other._name = new_type;
-other._val = new_value;
+other._Type = new_type;
+other._Value = new_Value;
 return is;
 }
 
@@ -197,22 +197,22 @@ if( (is_len(input1,input2) || is_mass(input1,input2) || is_time(input1,input2)) 
 else return false;
 }
 bool PhysicalNumber::is_len(const PhysicalNumber& input1, const PhysicalNumber& input2)  {
-Unit type1 = input1._name;
-Unit type2 = input2._name;
+Unit type1 = input1._Type;
+Unit type2 = input2._Type;
 if(      ((type1 == Unit::KM) || (type1 == Unit::M) || (type1 == Unit::CM)) && 
          ((type2 == Unit::KM) || (type2 == Unit::M) || (type2 == Unit::CM))         ) return true;
 else return false;
 }
 bool PhysicalNumber::is_mass(const PhysicalNumber& input1, const PhysicalNumber& input2)  {
-Unit type1 = input1._name;
-Unit type2 = input2._name;   
+Unit type1 = input1._Type;
+Unit type2 = input2._Type;   
  if(      ((type1 == Unit::TON) || (type1 == Unit::KG) || (type1 == Unit::G)) && 
          ((type2 == Unit::TON) || (type2 == Unit::KG) || (type2 == Unit::G))         ) return true;
 else return false;   
  }
 bool PhysicalNumber::is_time(const PhysicalNumber& input1, const PhysicalNumber& input2)  {
-Unit type1 = input1._name;
-Unit type2 = input2._name;
+Unit type1 = input1._Type;
+Unit type2 = input2._Type;
 if(      ((type1 == Unit::HOUR) || (type1 == Unit::MIN) || (type1 == Unit::SEC)) && 
          ((type2 == Unit::HOUR) || (type2 == Unit::MIN) || (type2 == Unit::SEC))         ) return true;
 else return false;    
