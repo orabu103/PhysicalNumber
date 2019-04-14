@@ -20,12 +20,12 @@ namespace ariel{
             PhysicalNumber& operator+=(const PhysicalNumber &py);
             PhysicalNumber& operator-=(const PhysicalNumber &py);
 
-            friend bool operator>(const PhysicalNumber& ,const PhysicalNumber&);
-            friend bool operator<(const PhysicalNumber& ,const PhysicalNumber&);
-            friend bool operator>=(const PhysicalNumber& ,const PhysicalNumber&);
-            friend bool operator<=(const PhysicalNumber& ,const PhysicalNumber&);
-            friend bool operator!=(const PhysicalNumber& ,const PhysicalNumber&);
-            friend bool operator==(const PhysicalNumber& ,const PhysicalNumber&);
+            bool operator>(const PhysicalNumber& ,const PhysicalNumber&);
+            bool operator<(const PhysicalNumber& ,const PhysicalNumber&);
+            bool operator>=(const PhysicalNumber& ,const PhysicalNumber&);
+            bool operator<=(const PhysicalNumber& ,const PhysicalNumber&);
+            bool operator!=(const PhysicalNumber& ,const PhysicalNumber&);
+            bool operator==(const PhysicalNumber& ,const PhysicalNumber&);
 
             const PhysicalNumber operator++(int);
 	    const PhysicalNumber operator--(int);
