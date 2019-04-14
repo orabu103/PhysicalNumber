@@ -8,12 +8,12 @@ using namespace std;
 
 namespace ariel{
     class PhysicalNumber{
+        double _Value;
+        Unit _Type;
 
         public:
-            double _val;
-            Unit _name;
-
-            PhysicalNumber(double _val, Unit _name);
+            
+            PhysicalNumber(double Value, Unit Type);
             const PhysicalNumber operator+() const;
             const PhysicalNumber operator-() const;
             const PhysicalNumber operator+(const PhysicalNumber &py) const;
@@ -38,10 +38,10 @@ namespace ariel{
 		    friend std::istream& operator>>(std::istream&, PhysicalNumber&); 
 
             // Checking:
-		   static  bool verifier(const PhysicalNumber&, const PhysicalNumber&) ; //[V]
-		   static  bool is_len(const PhysicalNumber&, const PhysicalNumber&) ; //[V]
-		   static  bool is_mass(const PhysicalNumber&, const PhysicalNumber&) ; //[V]
-		   static  bool is_time(const PhysicalNumber&, const PhysicalNumber&) ; //[V]
+		   static  bool verifier(const PhysicalNumber&, const PhysicalNumber&) ; 
+		   static  bool is_len(const PhysicalNumber&, const PhysicalNumber&) ;
+		   static  bool is_mass(const PhysicalNumber&, const PhysicalNumber&) ; 
+		   static  bool is_time(const PhysicalNumber&, const PhysicalNumber&) ;
 
 
 
