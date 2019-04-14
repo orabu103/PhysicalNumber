@@ -29,21 +29,19 @@ namespace ariel{
             friend bool operator==(const PhysicalNumber& ,const PhysicalNumber&);
 
             const PhysicalNumber operator++(int);
-		    const PhysicalNumber operator--(int);
-		    // Prefix: (--A)
-		    PhysicalNumber& operator++(); 
-		    PhysicalNumber& operator--();
+	    const PhysicalNumber operator--(int);
+	    // Prefix: (--A)
+	    PhysicalNumber& operator++(); 
+	    PhysicalNumber& operator--();
 
             friend std::ostream& operator<<(std::ostream&, const PhysicalNumber&); 
-		    friend std::istream& operator>>(std::istream&, PhysicalNumber&); 
+	    friend std::istream& operator>>(std::istream&, PhysicalNumber&); 
 
             // Checking:
-		   static  bool verifier(const PhysicalNumber&, const PhysicalNumber&) ; 
-		   static  bool is_len(const PhysicalNumber&, const PhysicalNumber&) ;
-		   static  bool is_mass(const PhysicalNumber&, const PhysicalNumber&) ; 
-		   static  bool is_time(const PhysicalNumber&, const PhysicalNumber&) ;
-
-
+	    static  bool verifier(const PhysicalNumber&, const PhysicalNumber&) ; 
+            static  bool is_len(const PhysicalNumber&, const PhysicalNumber&) ;
+	    static  bool is_mass(const PhysicalNumber&, const PhysicalNumber&) ; 
+   	    static  bool is_time(const PhysicalNumber&, const PhysicalNumber&) ;
 
     };
 }
