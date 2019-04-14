@@ -4,10 +4,8 @@ using namespace std;
 using namespace ariel;
 
 PhysicalNumber::PhysicalNumber(double Value, Unit Type)
-{
-    _Value = Value;
-    _Type = Type;
-}
+ : _Value(Value), _Type(Type) {}
+
 const PhysicalNumber PhysicalNumber::operator+() const {  return *this; }
 const PhysicalNumber PhysicalNumber::operator-() const { return PhysicalNumber(-this->_Value,this->_Type); }
 
