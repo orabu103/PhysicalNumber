@@ -117,17 +117,6 @@ switch(other._Type)
 return os << other._Value << "[" << typeof <<"]";
 }
 
-
-static istream& getAndCheckNextCharIs(istream& input, char expectedChar) {
-    char actualChar;
-    input >> actualChar;
-    if (!input) return input;
-
-    if (actualChar!=expectedChar) 
-        // failbit is for format error
-        input.setstate(ios::failbit);
-    return input;
-}
 std::istream& ariel::operator>>(std::istream& is, PhysicalNumber& other) {
 std::string input;
 
