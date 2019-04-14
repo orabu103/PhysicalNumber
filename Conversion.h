@@ -1,15 +1,14 @@
 using namespace std;
 
-
 namespace ariel{
     class Conversion{
          public:
-          static double conver(Unit sur ,Unit des, double size)
+          static double conver(Unit source ,Unit dest, double size)
         {
-            switch (des)
+            switch (dest)
             {
               case Unit::KM : // KM -> M ,CM
-              switch (sur)
+              switch (source)
             {
               case Unit::M:
                 return 1000 *size; 
@@ -22,7 +21,7 @@ namespace ariel{
             }
             break;
             case Unit::M : // M -> KM,CM
-            switch (sur)
+            switch (source)
             {
               case Unit::KM:
                 return 0.001 *size; 
@@ -35,7 +34,7 @@ namespace ariel{
             }
             break;
             case Unit::CM : //CM -> M , KM
-            switch (sur)
+            switch (source)
             {
               case Unit::M:
                 return 0.01 *size; 
@@ -48,7 +47,7 @@ namespace ariel{
             }
             break;
              case Unit::G : //G -> KG , TON
-            switch (sur)
+            switch (source)
             {
               case Unit::KG:
                 return 0.001 *size; 
@@ -61,7 +60,7 @@ namespace ariel{
             }
             break;
              case Unit::KG : //KG -> G , TON
-            switch (sur)
+            switch (source)
             {
               case Unit::G:
                 return 1000 *size; 
@@ -74,7 +73,7 @@ namespace ariel{
             }
             break;
              case Unit::TON : //TON -> G , KG
-            switch (sur)
+            switch (source)
             {
               case Unit::G:
                 return (1000000 *size); 
@@ -87,7 +86,7 @@ namespace ariel{
             }
             break;
              case Unit::SEC : //SEC -> MIN , HOUR
-            switch (sur)
+            switch (source)
             {
               case Unit::MIN:
                 return size / 60; 
@@ -100,7 +99,7 @@ namespace ariel{
             }
             break;
              case Unit::MIN : //MIN -> SEC , HOUR
-            switch (sur)
+            switch (source)
             {
               case Unit::SEC:
                 return 60 *size; 
@@ -113,7 +112,7 @@ namespace ariel{
             }
             break;
              case Unit::HOUR : //HOUR -> MIN , SEC
-            switch (sur)
+            switch (source)
             {
               case Unit::MIN:
                 return 60 *size; 
